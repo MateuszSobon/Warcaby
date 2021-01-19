@@ -43,7 +43,7 @@ void wypisz(struct plansza plansza) // funkcja do wypisywania szachownicy
          printf("| \n");
      }
      printf("  +---+---+---+---+---+---+---+---+ \n");
-     printf("    A   B   C   D   E   F   G   H   \n");
+     printf("    0   1   2   3   4   5   6   7   \n");
      printf("Zbicia gracza 1: %d\nZbicia gracza 2: %d\nTura: %d: ",plansza.zb1,plansza.zb2,plansza.tura);
      printf("\n");
 };
@@ -59,7 +59,7 @@ struct plansza pusta(void)  // inicjuje pustą plansze
             plansza.plansza[i][j]=' ';
         }
     }
-    plansza.tura=0;
+    plansza.tura=1;
     return plansza;
 };
 
@@ -96,7 +96,7 @@ struct plansza przypisz(void) // wpisuje w plansze figury TYLKO na początek gry
     i=i+2;
     };
     
-    plansza.tura=0;
+    plansza.tura=1;
     plansza.zb1=0;
     plansza.zb2=0;
 
@@ -660,8 +660,7 @@ struct elementlisty* ruchy(struct plansza plansza) //funkcja tworzy liste możli
             }
         }   
     }
-    printf("Od funkcji ruchy\n");
-    wypisz_liste(glowa);
+
     return glowa->nast;
     
 };
@@ -745,7 +744,7 @@ int ruch_komputera(struct elementlisty* glowa, struct plansza plansza, int glebo
         {
             struct plansza kidplansza=nowa_plansza(plansza, glowa->bicie);
             int move;
-            wypisz(kidplansza);
+
             move = ruch_komputera(ruchy(kidplansza),kidplansza,glebokosc-1);
 
             if(move>naj_poziom)
@@ -754,11 +753,11 @@ int ruch_komputera(struct elementlisty* glowa, struct plansza plansza, int glebo
                 najlepsza=glowa->bicie;
             }
             
-            
+            najnajlepsza=najlepsza;
 
             glowa=glowa->nast;
         }
-        printf("%d %d\n%d %d\n%d\n\n", najlepsza.p_x, najlepsza.p_y, najlepsza.x, najlepsza.y, najlepsza.a);
+
         if(plansza.tura==0)
         {
             return naj_poziom;
@@ -849,15 +848,38 @@ int alpha_beta(struct plansza const boardStatus, struct elementlisty* node, int 
 
 int main(void)
 {
-    struct plansza proba2=pusta();
+    struct plansza plansza;
+    plansza=przypisz();
+    printf("Cześć, zagramy w warcaby!\n");
+    printf("Oto zasady gry:\n\n");
+    printf("Komputer jest kolorem białym\n");
+    printf("Nie ma zbić podwójnych, po każdym ruchu jest zmiana tury\n");
+    printf("Pionki poruszają się do przodu na skosy i tak samo biją figury\n");
+    printf("Damka może poruszać się po dowolnej ilości pól na skosy do przodu i do tyłu\n");
+    printf("Damka jest warta dwa razy więcej niż pionek\n\n");
 
-    proba2.plansza[1][1]='p';
-    proba2.plansza[0][3]='p';
-    proba2.plansza[2][2]='P';
-    proba2.plansza[3][0]='P';
+    while (ocena(plansza)!=100)
+    {
+        wypisz(plansza);
 
-    wypisz(proba2);
-    struct elementlisty* glowa=ruchy(proba2);
+        struct lista gracz;
+        printf("Podaj współrzędne pionka który chcesz presunąć po spacji\n");
+        scanf("%d %d", &gracz.p_x, &gracz.p_y);
+        printf("Podaj współrzędne na które pole ma się prześć ten pionek\n");
+        scanf("%d %d", &gracz.x, &gracz.y);
+        printf("Napisz czy ruch jest z biciem, jeśli tak napisz 1 jeżeli nie to 0\n");
+        scanf("%d", &gracz.a);
 
-    ruch_komputera(glowa, proba2, 5);
+        struct plansza plansza2=nowa_plansza(plansza, gracz);
+        
+        wypisz(plansza2);
+
+        struct elementlisty* glowa=ruchy(plansza2);
+
+        ruch_komputera(glowa, plansza2, 3);
+
+        plansza=nowa_plansza(plansza2, najnajlepsza);
+
+    }
+    printf("Wygrał ");
 };
