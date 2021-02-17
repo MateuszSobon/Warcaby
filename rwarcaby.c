@@ -5,6 +5,7 @@
 
 #define CZARNE 1
 #define BIALE 0
+// test
 
 struct lista 
 {
