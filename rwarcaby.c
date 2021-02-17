@@ -12,7 +12,6 @@ struct lista
     int p_x,p_y;
     int x,y;
     int a;
-
 };
 
 struct lista najnajlepsza;
