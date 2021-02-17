@@ -5,7 +5,6 @@
 
 #define CZARNE 1
 #define BIALE 0
-#define OCENA 1000
 
 struct lista 
 {
@@ -465,9 +464,9 @@ struct elementlisty* ruchy(struct plansza plansza) //funkcja tworzy liste możli
 
                 if (plansza.plansza[i][j]=='P')
                 {
-                    if ((i+1<8 && j+1<8) && ((i+2<8 && j+2<8))) //sprawdzamy czy nie wychodza poza plansze
+                    if ((i+2<8 && j+2<8)) //sprawdzamy czy nie wychodza poza plansze
                     {
-                        if ((plansza.plansza[i+1][j+1]=='p')||(plansza.plansza[i+1][j+1]=='q')&&(plansza.plansza[i+2][j+2] == ' ')) 
+                        if ((plansza.plansza[i+1][j+1]=='p' || plansza.plansza[i+1][j+1]=='q') && (plansza.plansza[i+2][j+2] == ' ')) 
                         {   
                             struct lista ruchy;
                             ruchy.p_x = i;
@@ -479,9 +478,9 @@ struct elementlisty* ruchy(struct plansza plansza) //funkcja tworzy liste możli
                             /*dodaj do listy pkt i j i+1 j+1 1*/
                         }
                     }                 
-                    if ((i+1<8 && j-1>=0) && (i+2<8 && j-2>=0))                 
+                    if (i+2<8 && j-2>=0)                
                     {                    
-                        if ((plansza.plansza[i+1][j-1]=='p')||(plansza.plansza[i+1][j-1]=='q')&&(plansza.plansza[i+2][j-2] == ' ')) 
+                        if ((plansza.plansza[i+1][j-1]=='p' || plansza.plansza[i+1][j-1]=='q') && (plansza.plansza[i+2][j-2] == ' ')) 
                         {   
                             struct lista ruchy;
                             ruchy.p_x = i;
@@ -492,33 +491,6 @@ struct elementlisty* ruchy(struct plansza plansza) //funkcja tworzy liste możli
                             dodaj_element(glowa,ruchy);
                         } 
                     }                 
-                    if ((i-1>=0 && j+1<8) && (i-2>=0 && j+2<8))                
-                    {                     
-                        if ((plansza.plansza[i-1][j+1]=='p')||(plansza.plansza[i-1][j+1]=='q')&&(plansza.plansza[i-2][j+2] == ' ')) 
-                        {
-                            struct lista ruchy;
-                            ruchy.p_x = i;
-                            ruchy.p_y = j;
-                            ruchy.x = i-2;
-                            ruchy.y = j+2;
-                            ruchy.a = 1;
-                            dodaj_element(glowa,ruchy);
-                        } 
-                    }                 
-                    if ((i-1>=0 && j-1>=0) && (i-2>=0 && j-2>=0))            
-                    {                     
-                       if ((plansza.plansza[i-1][j-1]=='p')||(plansza.plansza[i-1][j-1]=='q')&&(plansza.plansza[i-2][j-2] == ' ')) 
-                       {
-                            struct lista ruchy;
-                            ruchy.p_x = i;
-                            ruchy.p_y = j;
-                            ruchy.x = i-2;
-                            ruchy.y = j-2;
-                            ruchy.a = 1;
-                            dodaj_element(glowa,ruchy);
-                            /*dodaj do listy pkt i j i+1 j+1 1*/
-                       } 
-                    }
                 }
             }
             else if(plansza.tura == 1)//ruch z bieciem dla czarnych
@@ -602,36 +574,9 @@ struct elementlisty* ruchy(struct plansza plansza) //funkcja tworzy liste możli
 
                 if (plansza.plansza[i][j]=='p')
                 {
-                    if ((i+1<8 && j+1<8) && ((i+2<8 && j+2<8))) //sprawdzamy czy nie wychodza poza plansze
-                    {
-                        if ((plansza.plansza[i+1][j+1]=='P')||(plansza.plansza[i+1][j+1]=='Q')&&(plansza.plansza[i+2][j+2] == ' ')) 
-                        {   
-                            struct lista ruchy;
-                            ruchy.p_x = i;
-                            ruchy.p_y = j;
-                            ruchy.x = i+2;
-                            ruchy.y = j+2;
-                            ruchy.a = 1;
-                            dodaj_element(glowa,ruchy);
-                            /*dodaj do listy pkt i j i+1 j+1 1*/
-                        }
-                    }                 
-                    if ((i+1<8 && j-1>=0) && (i+2<8 && j-2>=0))                 
-                    {                    
-                        if ((plansza.plansza[i+1][j-1]=='P')||(plansza.plansza[i+1][j-1]=='Q')&&(plansza.plansza[i+2][j-2] == ' ')) 
-                        {   
-                            struct lista ruchy;
-                            ruchy.p_x = i;
-                            ruchy.p_y = j;
-                            ruchy.x = i+2;
-                            ruchy.y = j-2;
-                            ruchy.a = 1;
-                            dodaj_element(glowa,ruchy);
-                        } 
-                    }                 
-                    if ((i-1>=0 && j+1<8) && (i-2>=0 && j+2<8))                
+                    if  (i-2>=0 && j+2<8)        
                     {                     
-                        if ((plansza.plansza[i-1][j+1]=='P')||(plansza.plansza[i-1][j+1]=='Q')&&(plansza.plansza[i-2][j+2] == ' ')) 
+                        if ((plansza.plansza[i-1][j+1]=='P' || plansza.plansza[i-1][j+1]=='Q') && (plansza.plansza[i-2][j+2] == ' ')) 
                         {
                             struct lista ruchy;
                             ruchy.p_x = i;
@@ -642,9 +587,9 @@ struct elementlisty* ruchy(struct plansza plansza) //funkcja tworzy liste możli
                             dodaj_element(glowa,ruchy);
                         } 
                     }                 
-                    if ((i-1>=0 && j-1>=0) && (i-2>=0 && j-2>=0))            
+                    if  (i-2>=0 && j-2>=0)     
                     {                     
-                       if ((plansza.plansza[i-1][j-1]=='P')||(plansza.plansza[i-1][j-1]=='Q')&&(plansza.plansza[i-2][j-2] == ' ')) 
+                       if ((plansza.plansza[i-1][j-1]=='P' ||  plansza.plansza[i-1][j-1]=='Q') && (plansza.plansza[i-2][j-2] == ' ')) 
                        {
                             struct lista ruchy;
                             ruchy.p_x = i;
@@ -694,8 +639,22 @@ struct plansza nowa_plansza(struct plansza plansza, struct lista ruch) //wykonuj
                 plansza.plansza[ruch.x+1][ruch.y-1]=' ';
             } 
         }
-
     }
+    for (int i = 0; i < 8; i++)
+    {
+        if(plansza.plansza[0][i]=='p') //jesli pionek dotrze do końca to zamień go na damke
+        {
+            plansza.plansza[0][i]='q';
+        }
+    }
+    for (int i = 0; i < 8; i++)
+    {
+        if(plansza.plansza[7][i]=='P') //jesli pionek dotrze do końca to zamień go na damke
+        {
+            plansza.plansza[7][i]='Q';
+        }
+    }
+    
     if (plansza.tura==0) // tura bialych, zamień po zakończonym ruchu
     {
         plansza.tura=1;
@@ -706,29 +665,6 @@ struct plansza nowa_plansza(struct plansza plansza, struct lista ruch) //wykonuj
     }
     return plansza;
 };  
-
-int minimal(struct plansza plansza, struct elementlisty* glowa) //znajduje najlepszy ruch dla przeciwnika 
-{   int najwieksza=0, pomoc=0;
-    while(glowa->nast)
-    {
-        struct plansza plansza2 =nowa_plansza(plansza, glowa->bicie); //wykonuje ruch pierwszy z listy
-        pomoc= ocena(plansza2); // oceniam go i zapisuje do zmiennej
-        if (pomoc>najwieksza) // sprawdzam czy ta wartość jest większa od poprzedniej, 
-        {
-            najwieksza=pomoc; // jesli tak, zamieniam ją na największą 
-        }
-        glowa=glowa->nast;
-    }
-    return najwieksza; // zwracam najlepszy ruch dla tego zawodnika
-};
-
-int znak(int liczba)
-{
- if (liczba %2!=0)
- {
-     return -1;
- }
-};
 
 int ruch_komputera(struct elementlisty* glowa, struct plansza plansza, int glebokosc) //jakieś wypociny żeby komputer zrobił ruch
 {   
@@ -744,9 +680,11 @@ int ruch_komputera(struct elementlisty* glowa, struct plansza plansza, int glebo
         {
             struct plansza kidplansza=nowa_plansza(plansza, glowa->bicie);
             int move;
+            struct elementlisty* glowa2=ruchy(kidplansza);
 
-            move = ruch_komputera(ruchy(kidplansza),kidplansza,glebokosc-1);
+            move = ruch_komputera(glowa2,kidplansza,glebokosc-1);
 
+            usun_listy(glowa2);
             if(move>naj_poziom)
             {
                 naj_poziom=move;
@@ -819,6 +757,7 @@ int negamax(struct szachownica* sz, char glebokosc, int alfa, int beta)
 // Remember to make init call with alpha = -inf and beta = +inf to start the algorithm
 // init call: currentAlphaBeta = alpha_beta(board, node, nodesDepth, -inf, +inf);
 // Ininity value can easily obtained with inf = INFINITY that comes with <math.h> header
+
 int alpha_beta(struct plansza const boardStatus, struct elementlisty* node, int depth, int alpha, int beta)
 {
     int returnedAlpha = 0;
@@ -846,8 +785,48 @@ int alpha_beta(struct plansza const boardStatus, struct elementlisty* node, int 
     return alpha;
 }
 
+int ile(struct elementlisty* glowa)
+{   
+    int i=0;
+    while(glowa->nast)
+        {
+            i++;
+            glowa=glowa->nast;
+        }
+    return i;
+};
+
+void usun_listy(struct elementlisty* glowa)
+{
+    struct elementlisty* glowa2=glowa;
+    int how=ile(glowa);
+    int i=0;
+
+    for(int k=0; k<how; k++)
+    {
+        if(glowa)
+        {   
+            while(glowa->nast)
+            {
+                i++;
+                glowa=glowa->nast;
+            }
+            free(glowa);
+            glowa=glowa2;
+            for (int j=0; j <i-1; j++)
+            {
+                glowa=glowa->nast;
+            }
+            glowa->nast=NULL;
+            glowa=glowa2;
+            i=0;
+        }
+    }
+    
+};
 int main(void)
 {
+    //2 do poprawy do poprawy wybor przez grtacza zeby nie wpisał polecenia dla nie swojego pionka itp
     struct plansza plansza;
     plansza=przypisz();
     printf("Cześć, zagramy w warcaby!\n");
@@ -858,11 +837,16 @@ int main(void)
     printf("Damka może poruszać się po dowolnej ilości pól na skosy do przodu i do tyłu\n");
     printf("Damka jest warta dwa razy więcej niż pionek\n\n");
 
-    while (ocena(plansza)!=100)
-    {
-        wypisz(plansza);
+    struct plansza plansza2;
+    struct elementlisty* glowa;
+    struct lista gracz;
+    int i=1;
 
-        struct lista gracz;
+    while (ocena(plansza)!=100)
+    {   
+        printf("\n\n%d Ruch\n",i);
+        wypisz(plansza);
+        
         printf("Podaj współrzędne pionka który chcesz presunąć po spacji\n");
         scanf("%d %d", &gracz.p_x, &gracz.p_y);
         printf("Podaj współrzędne na które pole ma się prześć ten pionek\n");
@@ -870,16 +854,21 @@ int main(void)
         printf("Napisz czy ruch jest z biciem, jeśli tak napisz 1 jeżeli nie to 0\n");
         scanf("%d", &gracz.a);
 
-        struct plansza plansza2=nowa_plansza(plansza, gracz);
+        plansza2=nowa_plansza(plansza, gracz);
         
         wypisz(plansza2);
 
-        struct elementlisty* glowa=ruchy(plansza2);
+        glowa=ruchy(plansza2);
+        wypisz_liste(glowa);
 
-        ruch_komputera(glowa, plansza2, 3);
+        ruch_komputera(glowa, plansza2, 6);
+        usun_listy(glowa);
 
         plansza=nowa_plansza(plansza2, najnajlepsza);
-
+        i++;
     }
     printf("Wygrał ");
-};
+};//149 BŁĄD gdy do gry weszła damka llub pamiec sie skonczyla; 
+//dodac jakas wartosc dla zaminy pionka w damke dla komputera
+// zabezpieczenie gdy lista jest pusta
+//segmentation foult 791 line
