@@ -5,7 +5,8 @@
 
 #define CZARNE 1
 #define BIALE 0
-// test
+
+// komentarz + test
 
 struct lista 
 {
